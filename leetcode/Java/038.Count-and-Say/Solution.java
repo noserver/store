@@ -15,6 +15,7 @@ public class Solution {
                 }
                 read = read+Integer.toString(count)+String.valueOf(cur);
             }
+            
             return read;
         }
     }
