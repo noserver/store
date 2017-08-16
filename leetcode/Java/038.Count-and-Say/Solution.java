@@ -18,7 +18,7 @@ public class Solution {
             return read;
         }
     }
-    //
+    //直接循环无递归
     public String countAndSay2(int n){
         String res = "1";
         for(int i=1;i<n;i++){
