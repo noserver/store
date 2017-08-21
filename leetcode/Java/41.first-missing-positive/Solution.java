@@ -1,22 +1,28 @@
 public class Solution {
     public int firstMissingPositive(int[] nums) {
         int temp = 0;
+        int max = nums.length;//最大值
         //第一遍循环，进行排序
-        for(int i=0;i<nums.length;i++){
-            //正数，
-            if(nums[i]>0&&nums[i]<nums.length){
+        for(int i=0;i<max;){
+            //几种抛弃值的可能：小于0，大于最大值，小于已排序值，或者相同
+            if(nums[i]==i+1){
+                i++;
+            }
+            else if(nums[i]<=0||nums[i]>max||nums[i]<i+1||nums[i]==nums[nums[i]-1]){
+                //交换nums[i]和nums[max-1]
                 temp = nums[i];
-                nums[i] = nums[nums[i]];
+                nums[i]=nums[max-1];
+                nums[max-1] = temp;
+                max--;
+            }
+            else{
+                //交换nums[i]和nums[nums[i]-1]
+                temp = nums[i];
+                nums[i] = nums[temp-1];
                 nums[temp-1] = temp;
             }
         }
-        //遍历一遍，第一个nums[i]!=i的就是第一个缺失的正数
-        for(int j=0;j<nums.length;j++){
-            if(nums[j]!=j+1){
-                return j+1;
-            }
-        }
-        return nums.length+1;
+        return max+1;
     }
 }
 /**
@@ -32,3 +38,15 @@ public class Solution {
  * 感觉这个做法效率未必高
  * 所有都在做进行排序，感觉还应该有其他思路
  */
+
+/**
+ * 之前做法有问题，一遍循环就可以解决的
+ */
+/**
+ * 最终解决思路：
+ * 还是交换，但是一遍就可以解决的交换
+ * 负数或大于nums.length交换到nums.length-1-i位置
+ * 其余交换到nums[nums[i]-1]位置
+ * 交换结束后，如果不满足nums[i]==i+1,则返回i+1
+ * 这样不用第二遍循环了
+ **/
