@@ -11,22 +11,23 @@ public class Main{
                 arr[i][j] = sc.nextInt();
             }
         }
-        
+        //从左下角开始查找
+        //起点
         int x = h-1;
         int y = 0;
         int sign = 0;
         while((x>=0)&&(y<w)){
             if(arr[x][y]>target){
-                
+                //大于向上找
                 x--;
             }else if(arr[x][y]<target){
-                
+                //小于向右找
                 y++;
             }else{
-                System.out.println(x+" "+y);
-                return;
+                
+                return true;
             }
         }
-        System.out.println("-1 -1");
+        return false;
     }
 }
